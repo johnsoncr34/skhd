@@ -169,7 +169,7 @@ static EVENT_TAP_CALLBACK(key_handler)
         CGEventTapEnable(event_tap->handle, 1);
     } break;
     case kCGEventKeyDown: {
-        if (table_find(&blacklst, carbon.process_name)) return event;
+        if (carbon.process_name && table_find(&blacklst, carbon.process_name)) return event;
         if (!current_mode) return event;
 
         BEGIN_TIMED_BLOCK("handle_keypress");
@@ -180,7 +180,7 @@ static EVENT_TAP_CALLBACK(key_handler)
         if (result) return NULL;
     } break;
     case NX_SYSDEFINED: {
-        if (table_find(&blacklst, carbon.process_name)) return event;
+        if (carbon.process_name && table_find(&blacklst, carbon.process_name)) return event;
         if (!current_mode) return event;
 
         struct hotkey eventkey;
